@@ -1,0 +1,18 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import sklearn.model_selection
+
+#baixar e visualizar a tabela
+df = pd.read_csv(r'C:\Users\perei\Downloads\advertising.csv')
+display(df)
+
+#informações da tabela
+print(df.info())
+
+#criação de gráficos
+sns.pairplot(df)
+plt.show()
+
+sns.heatmap(df.corr(), cmap ='Wistia', annot=True)
+plt.show()
