@@ -1,0 +1,34 @@
+import pandas as pd
+import plotly.express as px
+
+#baixar a tabela
+df = pd.read_csv(r'C:\Users\perei\Downloads\telecom_users.csv')
+display(df)
+
+#retirar a coluna sem nome
+df = df.drop(["Unnamed: 0"], axis=1)
+display(df)
+print(df.info())
+
+# mudar a coluna TotalGasto para númerico
+df['TotalGasto'] = pd.to_numeric(df['TotalGasto'], errors='coerce')
+print(df.info())
+
+#retirar todas as colunas vazias
+df = df.dropna(how='all',axis=1)
+print(df.info())
+
+#Retirar todas as linhas vazias
+df = df.dropna()
+print(df.info())
+
+#Contar a quantidade de CHURN: cancelamentos
+display(df['Churn'].value_counts())
+#Contar a quantidade de CHURN: cancelamentos em porcentagem
+display(df['Churn'].value_counts(normalize=True).map('{:.1%}'.format))
+
+#criar gráfico
+for coluna in df:
+    if coluna != "IDCliente":
+        fig = px.histogram(df, x=coluna, color="Churn")
+        fig.show()
